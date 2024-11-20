@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite Redirect</title>
+    <script>
+        // احفظ معرف الإحالة ووجه المستخدم
+        function saveReferral(referralId) {
+            fetch('https://your-supabase-project.supabase.co/rest/v1/referrals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': 'YOUR_SUPABASE_ANON_KEY',
+                },
+                body: JSON.stringify({ referral_id: referralId, timestamp: new Date() })
+            }).then(() => {
+                // وجه المستخدم إلى متجر Google Play
+                window.location.href = "https://play.google.com/store/apps/details?id=com.example.app";
+            }).catch(error => {
+                console.error('Error saving referral:', error);
+            });
+        }
+
+        // التوجيه عند تحميل الصفحة
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const referralId = urlParams.get('referral_id');
+            if (referralId) {
+                saveReferral(referralId);
+            } else {
+                window.location.href = "https://play.google.com/store/apps/details?id=com.example.app";
+            }
+        }
+    </script>
+</head>
+<body>
+    <p>Redirecting to the app store...</p>
+</body>
+</html>
