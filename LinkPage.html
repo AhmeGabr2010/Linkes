@@ -5,67 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Referral Handler</title>
     <script>
-        let User_UUID = "0";
-
-        // دالة للحصول على UUID أو إنشائه إذا لم يكن موجودًا
-        // async function getOrCreateDeviceId() {
-        //     let deviceId = "";
-        //     try {
-        //         // إذا كان في بيئة الويب أو تطبيق الهاتف
-        //         if (navigator.userAgent.indexOf("Android") !== -1) {
-        //             deviceId = await getAndroidDeviceId(); // هنا يمكنك إضافة منطق لالتقاط ID من جهاز أندرويد
-        //         } else if (navigator.userAgent.indexOf("Windows") !== -1) {
-        //             deviceId = await getWindowsDeviceId(); // هنا يمكنك إضافة منطق لالتقاط ID من جهاز ويندوز
-        //         } else {
-        //             deviceId = await getOrCreateDeviceId_2(); // استرجاع UUID من localStorage أو إنشائه
-        //         }
-
-        //         if (deviceId) {
-        //             User_UUID = deviceId;
-        //             console.log('User_UUID1:', User_UUID);
-        //         }
-        //     } catch (e) {
-        //         console.error("Error getting device ID", e);
-        //     }
-
-        //     return deviceId;
-        // }
-
-        // استرجاع أو إنشاء UUID باستخدام localStorage
-        // async function getOrCreateDeviceId_2() {
-        //     let deviceId = localStorage.getItem('device_id');
-
-        //     if (!deviceId) {
-        //         deviceId = generateUUID(); // توليد UUID جديد
-        //         localStorage.setItem('device_id', deviceId);
-        //     }
-
-        //     if (deviceId) {
-        //         User_UUID = deviceId;
-        //         console.log('User_UUID2:', User_UUID);
-        //     }
-
-        //     handleReferral();
-        //     return deviceId;
-        // }
-
-        // توليد UUID
-        // function generateUUID() {
-        //     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        //         var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-        //         return v.toString(16);
-        //     });
-        // }
-
+        let User_UUID = "0";  // تأكد من أنك تعيّن UUID الخاص بالمستخدم بشكل صحيح إذا كان لديك
         // التعامل مع رابط الإحالة
         function handleReferral() {
             const url = window.location.href;
             const urlParams = new URLSearchParams(window.location.search);
             const referralId = urlParams.get('referral_id');
 
+            console.log('Current URL:', url);  // تحقق من الرابط الحالي
+            console.log('Referral ID:', referralId);  // تحقق من الـ referral_id الذي تم استخراجه
+
             if (referralId) {
                 const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
-                const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI';
+                const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI'; // تأكد من صحة مفتاح API
                 const headers = {
                     'Content-Type': 'application/json',
                     'apikey': apiKey,
@@ -78,6 +30,7 @@
                     resever_id: User_UUID,
                 };
 
+                // إرسال البيانات إلى Supabase
                 fetch(supabaseUrl, {
                     method: 'POST',
                     headers: headers,
@@ -85,20 +38,20 @@
                 })
                 .then(response => response.json())
                 .then(() => {
-                    window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';
+                    console.log('Referral saved successfully');
+                    window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // بعد إرسال البيانات
                 })
                 .catch(error => {
-                    console.error('Error saving referral:', error);
+                    console.error('Error saving referral:', error);  // إذا حدث خطأ
                 });
             } else {
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';
+                console.log('No referral_id found in URL');
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // في حالة عدم وجود referral_id
             }
         }
 
         // استدعاء الدالة عند تحميل الصفحة
-        // window.onload = function() {
-        //     // getOrCreateDeviceId();
-        // };
+        window.onload = handleReferral;
     </script>
 </head>
 <body>
