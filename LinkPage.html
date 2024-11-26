@@ -8,46 +8,46 @@
         let User_UUID = "0";
 
         // دالة للحصول على UUID أو إنشائه إذا لم يكن موجودًا
-        async function getOrCreateDeviceId() {
-            let deviceId = "";
-            try {
-                // إذا كان في بيئة الويب أو تطبيق الهاتف
-                if (navigator.userAgent.indexOf("Android") !== -1) {
-                    deviceId = await getAndroidDeviceId(); // هنا يمكنك إضافة منطق لالتقاط ID من جهاز أندرويد
-                } else if (navigator.userAgent.indexOf("Windows") !== -1) {
-                    deviceId = await getWindowsDeviceId(); // هنا يمكنك إضافة منطق لالتقاط ID من جهاز ويندوز
-                } else {
-                    deviceId = await getOrCreateDeviceId_2(); // استرجاع UUID من localStorage أو إنشائه
-                }
+        // async function getOrCreateDeviceId() {
+        //     let deviceId = "";
+        //     try {
+        //         // إذا كان في بيئة الويب أو تطبيق الهاتف
+        //         if (navigator.userAgent.indexOf("Android") !== -1) {
+        //             deviceId = await getAndroidDeviceId(); // هنا يمكنك إضافة منطق لالتقاط ID من جهاز أندرويد
+        //         } else if (navigator.userAgent.indexOf("Windows") !== -1) {
+        //             deviceId = await getWindowsDeviceId(); // هنا يمكنك إضافة منطق لالتقاط ID من جهاز ويندوز
+        //         } else {
+        //             deviceId = await getOrCreateDeviceId_2(); // استرجاع UUID من localStorage أو إنشائه
+        //         }
 
-                if (deviceId) {
-                    User_UUID = deviceId;
-                    console.log('User_UUID1:', User_UUID);
-                }
-            } catch (e) {
-                console.error("Error getting device ID", e);
-            }
+        //         if (deviceId) {
+        //             User_UUID = deviceId;
+        //             console.log('User_UUID1:', User_UUID);
+        //         }
+        //     } catch (e) {
+        //         console.error("Error getting device ID", e);
+        //     }
 
-            return deviceId;
-        }
+        //     return deviceId;
+        // }
 
         // استرجاع أو إنشاء UUID باستخدام localStorage
-        async function getOrCreateDeviceId_2() {
-            let deviceId = localStorage.getItem('device_id');
+        // async function getOrCreateDeviceId_2() {
+        //     let deviceId = localStorage.getItem('device_id');
 
-            if (!deviceId) {
-                deviceId = generateUUID(); // توليد UUID جديد
-                localStorage.setItem('device_id', deviceId);
-            }
+        //     if (!deviceId) {
+        //         deviceId = generateUUID(); // توليد UUID جديد
+        //         localStorage.setItem('device_id', deviceId);
+        //     }
 
-            if (deviceId) {
-                User_UUID = deviceId;
-                console.log('User_UUID2:', User_UUID);
-            }
+        //     if (deviceId) {
+        //         User_UUID = deviceId;
+        //         console.log('User_UUID2:', User_UUID);
+        //     }
 
-            handleReferral();
-            return deviceId;
-        }
+        //     handleReferral();
+        //     return deviceId;
+        // }
 
         // توليد UUID
         function generateUUID() {
