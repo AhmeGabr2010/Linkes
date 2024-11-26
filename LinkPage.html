@@ -55,13 +55,13 @@ console.log('User UUID2:', User_UUID);
                     body: JSON.stringify(body),
                 })
                 .then(response => {
+                    console.log('User UUID3:', User_UUID); 
                     if (!response.ok) {
+                        console.log('User UUID4:', User_UUID); 
                         window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app'; 
                     }
                 })
-                .catch(error => {
-                    console.error('Error saving referral:', error);
-                });
+               
             } else {
                 console.log('No referral_id found in URL');
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // في حالة عدم وجود referral_id
