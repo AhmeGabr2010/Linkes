@@ -23,92 +23,49 @@
 
         console.log('User UUID:', User_UUID); 
         // التعامل مع رابط الإحالة
-        function handleReferral() {
-    const url = window.location.href;
-    const urlParams = new URLSearchParams(window.location.search);
-    const referralId = urlParams.get('referral_id');
+      
+  function handleReferral() {
+            const url = window.location.href;
+            const urlParams = new URLSearchParams(window.location.search);
+            const referralId = urlParams.get('referral_id');
 
-    console.log('Current URL:', url);  // تحقق من الرابط الحالي
-    console.log('Referral ID:', referralId);  // تحقق من الـ referral_id الذي تم استخراجه
+            console.log('Current URL:', url);  // تحقق من الرابط الحالي
+            console.log('Referral ID:', referralId);  // تحقق من الـ referral_id الذي تم استخراجه
 
-    if (referralId) {
-        const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
-        const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI'; // تأكد من صحة مفتاح API
-        const headers = {
-            'Content-Type': 'application/json',
-            'apikey': apiKey,
-            'Authorization': Bearer ${apiKey},
-        };
+            if (referralId) {
+                const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
+                const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI'; // تأكد من صحة مفتاح API
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'apikey': apiKey,
+                    'Authorization': `Bearer ${apiKey}`,
+                };
 
-        const body = {
-            sender_id: referralId,
-            url: url,
-            resever_id: User_UUID,
-        };
+                const body = {
+                    sender_id: referralId,
+                    url: url,
+                    resever_id: User_UUID,
+                };
 
-        // إرسال البيانات إلى Supabase
-        fetch(supabaseUrl, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(body),
-        })
-        .then(response => {
-             
-            // تحقق من حالة الاستجابة أولاً
-            if (!response.ok) {
-                  window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app'; 
-              
+                // إرسال البيانات إلى Supabase
+                fetch(supabaseUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(body),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app'; 
+                    }
+                })
+                .catch(error => {
+                    console.error('Error saving referral:', error);
+                });
+            } else {
+                console.log('No referral_id found in URL');
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // في حالة عدم وجود referral_id
             }
-        
-    } else {
-        console.log('No referral_id found in URL');
-        window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // في حالة عدم وجود referral_id
-    }
-}
-
-
-  // function handleReferral() {
-  //           const url = window.location.href;
-  //           const urlParams = new URLSearchParams(window.location.search);
-  //           const referralId = urlParams.get('referral_id');
-
-  //           console.log('Current URL:', url);  // تحقق من الرابط الحالي
-  //           console.log('Referral ID:', referralId);  // تحقق من الـ referral_id الذي تم استخراجه
-
-  //           if (referralId) {
-  //               const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
-  //               const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI'; // تأكد من صحة مفتاح API
-  //               const headers = {
-  //                   'Content-Type': 'application/json',
-  //                   'apikey': apiKey,
-  //                   'Authorization': `Bearer ${apiKey}`,
-  //               };
-
-  //               const body = {
-  //                   sender_id: referralId,
-  //                   url: url,
-  //                   resever_id: User_UUID,
-  //               };
-
-  //               // إرسال البيانات إلى Supabase
-  //               fetch(supabaseUrl, {
-  //                   method: 'POST',
-  //                   headers: headers,
-  //                   body: JSON.stringify(body),
-  //               })
-  //               .then(response => {
-  //                   if (!response.ok) {
-  //                       window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app'; 
-  //                   }
-  //               })
-  //               .catch(error => {
-  //                   console.error('Error saving referral:', error);
-  //               });
-  //           } else {
-  //               console.log('No referral_id found in URL');
-  //               window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // في حالة عدم وجود referral_id
-  //           }
-  //       }
+        }
         // استدعاء الدالة عند تحميل الصفحة
         window.onload = handleReferral;
     </script>
