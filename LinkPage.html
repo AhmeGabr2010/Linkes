@@ -41,37 +41,14 @@ function handleReferral() {
             // تحقق من حالة الاستجابة أولاً
             if (!response.ok) {
                   window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app'; 
-                throw new Error(`HTTP error! status: ${response.status}`);
+              
             }
-
-            // طباعة الاستجابة كما هي قبل تحويلها إلى JSON
-            console.log('Response Text:', response.status);  // تحقق من رمز الاستجابة
-
-            // حاول قراءة الاستجابة كنص (لمساعدتك في التشخيص)
-            return response.text();
-        })
-        .then(text => {
-            console.log('Response Text Body:', text);  // طباعة النص بالكامل
-            try {
-                // const data = JSON.parse(text);  // حاول تحويل النص إلى JSON يدويًا
-                // console.log('Referral saved successfully:', data);  // إذا تمت المعالجة بنجاح
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // بعد إرسال البيانات
-            } catch (e) {
-                // console.error('Failed to parse response as JSON:', e);
-            }
-        })
-        .catch(error => {
-            // console.error('Error saving referral:', error);  // التعامل مع الأخطاء بشكل مناسب
-        });
+        
     } else {
         console.log('No referral_id found in URL');
         window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // في حالة عدم وجود referral_id
     }
 }
-
-
-
-
 
         // استدعاء الدالة عند تحميل الصفحة
         window.onload = handleReferral;
