@@ -33,6 +33,7 @@
             console.log('Referral ID:', referralId);  // تحقق من الـ referral_id الذي تم استخراجه
 
             if (referralId) {
+                console.log('User UUID1:', User_UUID); 
                 const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
                 const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI'; // تأكد من صحة مفتاح API
                 const headers = {
@@ -46,7 +47,7 @@
                     url: url,
                     resever_id: User_UUID,
                 };
-
+console.log('User UUID2:', User_UUID); 
                 // إرسال البيانات إلى Supabase
                 fetch(supabaseUrl, {
                     method: 'POST',
