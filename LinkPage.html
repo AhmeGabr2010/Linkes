@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Referral Handler</title>
     <script>
-        let User_UUID = "0";  // تأكد من أنك تعيّن UUID الخاص بالمستخدم بشكل صحيح إذا كان لديك
+        let User_UUID = "10";  // تأكد من أنك تعيّن UUID الخاص بالمستخدم بشكل صحيح إذا كان لديك
         // التعامل مع رابط الإحالة
 function handleReferral() {
     const url = window.location.href;
@@ -59,7 +59,7 @@ function handleReferral() {
             }
         })
         .catch(error => {
-            console.error('Error saving referral:', error);  // التعامل مع الأخطاء بشكل مناسب
+            // console.error('Error saving referral:', error);  // التعامل مع الأخطاء بشكل مناسب
         });
     } else {
         console.log('No referral_id found in URL');
