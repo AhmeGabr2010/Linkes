@@ -51,8 +51,8 @@ function handleReferral() {
         .then(text => {
             console.log('Response Text Body:', text);  // طباعة النص بالكامل
             try {
-                const data = JSON.parse(text);  // حاول تحويل النص إلى JSON يدويًا
-                console.log('Referral saved successfully:', data);  // إذا تمت المعالجة بنجاح
+                // const data = JSON.parse(text);  // حاول تحويل النص إلى JSON يدويًا
+                // console.log('Referral saved successfully:', data);  // إذا تمت المعالجة بنجاح
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // بعد إرسال البيانات
             } catch (e) {
                 // console.error('Failed to parse response as JSON:', e);
