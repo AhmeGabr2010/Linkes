@@ -55,7 +55,7 @@ function handleReferral() {
                 console.log('Referral saved successfully:', data);  // إذا تمت المعالجة بنجاح
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // بعد إرسال البيانات
             } catch (e) {
-                console.error('Failed to parse response as JSON:', e);
+                // console.error('Failed to parse response as JSON:', e);
             }
         })
         .catch(error => {
