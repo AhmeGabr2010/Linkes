@@ -37,9 +37,10 @@ function handleReferral() {
             body: JSON.stringify(body),
         })
         .then(response => {
-               window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app'; 
+             
             // تحقق من حالة الاستجابة أولاً
             if (!response.ok) {
+                  window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app'; 
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
