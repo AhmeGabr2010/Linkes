@@ -7,10 +7,10 @@
     <script>
         async function getOrCreateDeviceId() {
             let deviceId = "Waiting for device ID and referral handling...";
-            if (window.device && window.device.platform === 'Android') {
+            // if (window.device && window.device.platform === 'Android') {
                 const androidInfo = await deviceInfo.androidInfo;
                 deviceId = androidInfo.id;
-            }
+            // }
             document.getElementById('deviceId').innerText = deviceId;
         }
 
