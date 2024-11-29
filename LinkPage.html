@@ -17,7 +17,10 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             getOrCreateDeviceId();
         });
-        let deviceId2=getOrCreateDeviceId();
+      let deviceId2;
+getOrCreateDeviceId().then(id => {
+    deviceId2 = id;
+});
           // الدالة لتوليد UUID فريد
         function generateUUID() {
             return 'xxxx-xxxx-4xxx-yxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
