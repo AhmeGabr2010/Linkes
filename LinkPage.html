@@ -25,12 +25,7 @@
           //أضف معلومات إضافية عن الجهاز (Device Info).
       const deviceId = navigator.userAgent || 'unknown_device';
 
-        const fp = new FingerprintJS();
-fp.get().then(result => {
-    const deviceId2 = result.visitorId;
-    console.log(deviceId);
-});
-        // التعامل مع رابط الإحالة
+   // التعامل مع رابط الإحالة
       
   function handleReferral() {
             const url = window.location.href;
@@ -55,7 +50,7 @@ fp.get().then(result => {
                     url: url,
                     resever_id: User_UUID,
                         device_info: deviceId,
-                     device_info2: deviceId2,
+                  
                 };
 
                 // إرسال البيانات إلى Supabase
