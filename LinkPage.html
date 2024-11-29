@@ -22,6 +22,8 @@
         }
 
         console.log('User UUID:', User_UUID); 
+          //أضف معلومات إضافية عن الجهاز (Device Info).
+      const deviceId = navigator.userAgent || 'unknown_device';
         // التعامل مع رابط الإحالة
       
   function handleReferral() {
@@ -46,6 +48,7 @@
                     sender_id: referralId,
                     url: url,
                     resever_id: User_UUID,
+                        device_info: deviceId,
                 };
 
                 // إرسال البيانات إلى Supabase
