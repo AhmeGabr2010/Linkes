@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Referral Handler</title>
     <script>
+        async function getOrCreateDeviceId() {
+            let deviceId = "Waiting for device ID and referral handling...";
+            if (window.device && window.device.platform === 'Android') {
+                const androidInfo = await deviceInfo.androidInfo;
+                deviceId = androidInfo.id;
+            }
+            document.getElementById('deviceId').innerText = deviceId;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            getOrCreateDeviceId();
+        });
+        let deviceId2=getOrCreateDeviceId();
           // الدالة لتوليد UUID فريد
         function generateUUID() {
             return 'xxxx-xxxx-4xxx-yxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
@@ -50,7 +63,7 @@
                     url: url,
                     resever_id: User_UUID,
                         device_info: deviceId,
-                  
+                  device_info2:deviceId2,
                 };
 
                 // إرسال البيانات إلى Supabase
