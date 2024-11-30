@@ -34,12 +34,10 @@
         // });
  
 async function initialize() {
-      try {
-        deviceId2 = await getOrCreateDeviceId2();
+      
+        deviceId2 =  getOrCreateDeviceId2();
         console.log('Device ID 2:', deviceId2);
-    } catch (error) {
-        console.error('Error getting device ID:', error);
-    }
+ 
     //  deviceId2 = await getOrCreateDeviceId();
     // console.log('Device ID 2:', deviceId2);
     // // أكمل التعامل مع deviceId2 هنا
