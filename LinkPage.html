@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Referral Handler</title>
     <script>
-        let deviceId2;
+        
         async function getOrCreateDeviceId() {
             let deviceId = "Waiting for device ID and referral handling...";
             // if (window.device && window.device.platform === 'Android') {
                 const androidInfo = await deviceInfo.androidInfo;
                 deviceId = androidInfo.id;
-            deviceId2=deviceId;
+         
             // }
             document.getElementById('deviceId').innerText = deviceId;
         }
@@ -19,10 +19,13 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             getOrCreateDeviceId();
         });
-      
-// getOrCreateDeviceId().then(id => {
-//     deviceId2 = id;
-// });
+      let deviceId2;
+async function initialize() {
+     deviceId2 = await getOrCreateDeviceId();
+    console.log('Device ID 2:', deviceId2);
+    // أكمل التعامل مع deviceId2 هنا
+}
+initialize();
           // الدالة لتوليد UUID فريد
         function generateUUID() {
             return 'xxxx-xxxx-4xxx-yxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
