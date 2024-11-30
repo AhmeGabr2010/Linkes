@@ -16,15 +16,33 @@
             document.getElementById('deviceId').innerText = deviceId;
             return deviceId
         }
+        async function getOrCreateDeviceId2() {
+    return new Promise((resolve, reject) => {
+        document.addEventListener('deviceready', function () {
+            const deviceId = device.uuid; // الحصول على UUID للجهاز
+            resolve(deviceId);
+        });
+
+        setTimeout(() => {
+            reject('Device info not available');
+        }, 5000); // مهلة في حالة عدم استجابة المكتبة
+    });
+}
 
         // document.addEventListener('DOMContentLoaded', (event) => {
         //     getOrCreateDeviceId();
         // });
  
 async function initialize() {
-     deviceId2 = await getOrCreateDeviceId();
-    console.log('Device ID 2:', deviceId2);
-    // أكمل التعامل مع deviceId2 هنا
+      try {
+        deviceId2 = await getOrCreateDeviceId2();
+        console.log('Device ID 2:', deviceId2);
+    } catch (error) {
+        console.error('Error getting device ID:', error);
+    }
+    //  deviceId2 = await getOrCreateDeviceId();
+    // console.log('Device ID 2:', deviceId2);
+    // // أكمل التعامل مع deviceId2 هنا
         // الدالة لتوليد UUID فريد
         function generateUUID() {
             return 'xxxx-xxxx-4xxx-yxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
