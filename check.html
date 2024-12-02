@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Handler</title>
+    <script>
+             let deviceId2;
+        async function getOrCreateDeviceId() {
+            let deviceId = "Waiting for device ID and referral handling...";
+            // if (window.device && window.device.platform === 'Android') {
+                const androidInfo = await deviceInfo.androidInfo;
+                deviceId = androidInfo.id;
+         deviceId;
+            // }
+            document.getElementById('deviceId').innerText = deviceId;
+            return deviceId
+        }
+       
+        // document.addEventListener('DOMContentLoaded', (event) => {
+        //     getOrCreateDeviceId();
+        // });
+ 
+async function initialize() {
+      
+        deviceId2 =  getOrCreateDeviceId2();
+        console.log('Device ID 2:', deviceId2);
+ 
+    //  deviceId2 = await getOrCreateDeviceId();
+    // console.log('Device ID 2:', deviceId2);
+    // // أكمل التعامل مع deviceId2 هنا
+        // الدالة لتوليد UUID فريد
+      
+}
+  function generateUUID() {
+            return 'xxxx-xxxx-4xxx-yxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0,
+                    v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // الحصول على UUID من localStorage أو توليد UUID جديد
+        let User_UUID = localStorage.getItem('user_uuid');
+        if (!User_UUID) {
+            User_UUID = generateUUID();
+            localStorage.setItem('user_uuid', User_UUID);
+        }
+
+        console.log('User UUID:', User_UUID); 
+          //أضف معلومات إضافية عن الجهاز (Device Info).
+      const deviceId = navigator.userAgent || 'unknown_device';
+
+   // التعامل مع رابط الإحالة
+      
+  function handleReferral() {
+            const url = window.location.href;
+            const urlParams = new URLSearchParams(window.location.search);
+            const referralId = urlParams.get('referral_id');
+
+            console.log('Current URL:', url);  // تحقق من الرابط الحالي
+            console.log('Referral ID:', referralId);  // تحقق من الـ referral_id الذي تم استخراجه
+
+            if (referralId) {
+               
+                const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
+                const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI'; // تأكد من صحة مفتاح API
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'apikey': apiKey,
+                    'Authorization': `Bearer ${apiKey}`,
+                };
+
+                const body = {
+                    sender_id: referralId,
+                    url: url,
+                    resever_id: User_UUID,
+                        device_info: deviceId,
+                  device_info2:deviceId2,
+                };
+
+                // إرسال البيانات إلى Supabase
+                fetch(supabaseUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(body),
+                })
+                .then(response => {
+                   window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
+                 
+                })
+               
+            } else {
+                console.log('No referral_id found in URL');
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';  // في حالة عدم وجود referral_id
+            }
+      
+        }
+        // استدعاء الدالة عند تحميل الصفحة
+        window.onload = handleReferral;
+    </script>
+</head>
+<body>
+    <h1>Referral Handler Page</h1>
+    <p>Waiting for device ID and referral handling...</p>
+</body>
+</html>
