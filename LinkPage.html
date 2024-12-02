@@ -86,13 +86,13 @@ async function initialize() {
                     body: JSON.stringify(body),
                 })
                 .then(response => {
-                   window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';
+                   window.location.href = 'https://play.google.com/apps/internaltest/4701257992034792893';
                  
                 })
                
             } else {
                 console.log('No referral_id found in URL');
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.example.app';  // في حالة عدم وجود referral_id
+                window.location.href = 'https://play.google.com/apps/internaltest/4701257992034792893';  // في حالة عدم وجود referral_id
             }
       
         }
