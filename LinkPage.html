@@ -5,33 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Referral Handler</title>
     <script>
-             let deviceId2;
-        async function getOrCreateDeviceId() {
-            let deviceId = "Waiting for device ID and referral handling...";
-            // if (window.device && window.device.platform === 'Android') {
-                const androidInfo = await deviceInfo.androidInfo;
-                deviceId = androidInfo.id;
-         deviceId;
-            // }
-            document.getElementById('deviceId').innerText = deviceId;
-            return deviceId
-        }
+        //      let deviceId2;
+        // async function getOrCreateDeviceId() {
+        //     let deviceId = "Waiting for device ID and referral handling...";
+        //     // if (window.device && window.device.platform === 'Android') {
+        //         const androidInfo = await deviceInfo.androidInfo;
+        //         deviceId = androidInfo.id;
+        //  deviceId;
+        //     // }
+        //     document.getElementById('deviceId').innerText = deviceId;
+        //     return deviceId
+        // }
        
         // document.addEventListener('DOMContentLoaded', (event) => {
         //     getOrCreateDeviceId();
         // });
  
-async function initialize() {
+// async function initialize() {
       
-        deviceId2 =  getOrCreateDeviceId2();
-        console.log('Device ID 2:', deviceId2);
+//         deviceId2 =  getOrCreateDeviceId2();
+//         console.log('Device ID 2:', deviceId2);
  
-    //  deviceId2 = await getOrCreateDeviceId();
-    // console.log('Device ID 2:', deviceId2);
-    // // أكمل التعامل مع deviceId2 هنا
-        // الدالة لتوليد UUID فريد
+//     //  deviceId2 = await getOrCreateDeviceId();
+//     // console.log('Device ID 2:', deviceId2);
+//     // // أكمل التعامل مع deviceId2 هنا
+//         // الدالة لتوليد UUID فريد
       
-}
+// }
   function generateUUID() {
             return 'xxxx-xxxx-4xxx-yxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
                 var r = Math.random() * 16 | 0,
