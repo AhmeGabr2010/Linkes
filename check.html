@@ -5,45 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Referral Handler</title>
     <script>
-             let deviceId2;
-        async function getOrCreateDeviceId() {
-            let deviceId = "Waiting for device ID and referral handling...";
-            // if (window.device && window.device.platform === 'Android') {
-                const androidInfo = await deviceInfo.androidInfo;
-                deviceId = androidInfo.id;
-         deviceId;
-            // }
-            document.getElementById('deviceId').innerText = deviceId;
-            return deviceId
-        }
+//              let deviceId2;
+//         async function getOrCreateDeviceId() {
+//             let deviceId = "Waiting for device ID and referral handling...";
+//             // if (window.device && window.device.platform === 'Android') {
+//                 const androidInfo = await deviceInfo.androidInfo;
+//                 deviceId = androidInfo.id;
+//          deviceId;
+//             // }
+//             document.getElementById('deviceId').innerText = deviceId;
+//             return deviceId
+//         }
  
-async function initialize() {
+// async function initialize() {
       
-        deviceId2 =  getOrCreateDeviceId2();
-        console.log('Device ID 2:', deviceId2);
-}
-  function generateUUID() {
-            return 'xxxx-xxxx-4xxx-yxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random() * 16 | 0,
-                    v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
+//         deviceId2 =  getOrCreateDeviceId2();
+//         console.log('Device ID 2:', deviceId2);
+// }
+//   function generateUUID() {
+//             return 'xxxx-xxxx-4xxx-yxxx-xxxx-xxxx'.replace(/[xy]/g, function(c) {
+//                 var r = Math.random() * 16 | 0,
+//                     v = c === 'x' ? r : (r & 0x3 | 0x8);
+//                 return v.toString(16);
+//             });
+//         }
 
-        // الحصول على UUID من localStorage أو توليد UUID جديد
-        let User_UUID = localStorage.getItem('user_uuid');
-        if (!User_UUID) {
-            User_UUID = generateUUID();
-            localStorage.setItem('user_uuid', User_UUID);
-        }
+//         // الحصول على UUID من localStorage أو توليد UUID جديد
+//         let User_UUID = localStorage.getItem('user_uuid');
+//         if (!User_UUID) {
+//             User_UUID = generateUUID();
+//             localStorage.setItem('user_uuid', User_UUID);
+//         }
 
-        console.log('User UUID:', User_UUID); 
-          //أضف معلومات إضافية عن الجهاز (Device Info).
-      const deviceId = navigator.userAgent || 'unknown_device';
+//         console.log('User UUID:', User_UUID); 
+//           //أضف معلومات إضافية عن الجهاز (Device Info).
+//       const deviceId = navigator.userAgent || 'unknown_device';
 
-   // التعامل مع رابط الإحالة
+//    // التعامل مع رابط الإحالة
       
   function handleReferral() {
+            const  User_UUID = localStorage.getItem('user_uuid');
             const url = window.location.href;
             const urlParams = new URLSearchParams(window.location.search);
             const referralId = urlParams.get('referral_id');
@@ -65,7 +66,7 @@ async function initialize() {
                     sender_id: referralId,
                     url: url,
                     resever_id: User_UUID,
-                        device_info: deviceId,
+                        // device_info: deviceId,
                   type:2,
                 };
 
@@ -75,24 +76,24 @@ async function initialize() {
                     headers: headers,
                     body: JSON.stringify(body),
                 })
-                .then(response => response.json()) // تحويل الرد إلى JSON
-            .then(data => {
-                console.log('Data inserted:', data); // البيانات التي تم إرجاعها
-                if (data && data.length > 0) {
-                    const User_UUID = data[0].UU_ID; // رقم id الذي تم إنشاؤه
-                    console.log('Generated ID:', generatedId);
-                     localStorage.setItem('user_uuid', User_UUID);
-                }
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
-            })
-            .catch(error => {
-                console.error('Error:', error); // معالجة الأخطاء
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
-            });
-                // .then(response => {
-                //    window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
+            //     .then(response => response.json()) // تحويل الرد إلى JSON
+            // .then(data => {
+            //     console.log('Data inserted:', data); // البيانات التي تم إرجاعها
+            //     if (data && data.length > 0) {
+            //         const User_UUID = data[0].UU_ID; // رقم id الذي تم إنشاؤه
+            //         console.log('Generated ID:', generatedId);
+            //          localStorage.setItem('user_uuid', User_UUID);
+            //     }
+            //     window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
+            // })
+            // .catch(error => {
+            //     console.error('Error:', error); // معالجة الأخطاء
+            //     window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
+            // });
+                .then(response => {
+                   window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
                  
-                // })
+                })
                
             } else {
                 console.log('No referral_id found in URL');
