@@ -54,7 +54,7 @@
    // التعامل مع رابط الإحالة
       
   function handleReferral() {
-            const User_UUID = localStorage.getItem('user_uuid');
+            const User_UUID = localStorage.getItem('referr_uuid');
             const url = window.location.href;
             const urlParams = new URLSearchParams(window.location.search);
             const referralId = urlParams.get('referral_id');
@@ -92,7 +92,7 @@
                 if (data && data.length > 0) {
                      User_UUID = data[0].UU_ID; // رقم id الذي تم إنشاؤه
                     console.log('Generated ID:', generatedId);
-                     localStorage.setItem('user_uuid', User_UUID);
+                     localStorage.setItem('referr_uuid', User_UUID);
                 }
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
             })
