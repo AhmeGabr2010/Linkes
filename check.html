@@ -44,7 +44,7 @@
 //    // التعامل مع رابط الإحالة
       
   function handleReferral() {
-            const  User_UUID = localStorage.getItem('user_uuid');
+            const  User_UUID = localStorage.getItem('referr_uuid');
             const url = window.location.href;
             const urlParams = new URLSearchParams(window.location.search);
             const referralId = urlParams.get('referral_id');
