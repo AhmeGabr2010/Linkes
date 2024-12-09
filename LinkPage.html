@@ -124,7 +124,7 @@
         try {
             // تأكد من أن الـ User_UUID موجود في الـ localStorage
             let User_UUID = localStorage.getItem('referr_uuid');
-            
+              console.log('Generated -1-ID:', User_UUID);
             if (!User_UUID) {
                 // إذا لم يكن موجود، احصل عليه من Supabase
                 const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
