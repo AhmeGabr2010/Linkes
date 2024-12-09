@@ -125,7 +125,7 @@
             // تأكد من أن الـ User_UUID موجود في الـ localStorage
             let User_UUID = localStorage.getItem('referr_uuid');
               console.log('Generated -1-ID:', User_UUID);
-            if (!User_UUID) {
+            // if (!User_UUID) {
                 // إذا لم يكن موجود، احصل عليه من Supabase
                 const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
                 const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI'; // تأكد من صحة مفتاح API
@@ -158,7 +158,7 @@
                     console.log('Generated ID:', User_UUID);
                     localStorage.setItem('referr_uuid', User_UUID); // تخزين الـ User_UUID في الـ localStorage
                 }
-            }
+            // }
             
             // الانتقال إلى متجر التطبيقات بعد الانتهاء من معالجة البيانات
             // window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
