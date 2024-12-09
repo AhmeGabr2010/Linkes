@@ -53,17 +53,80 @@
 
    // التعامل مع رابط الإحالة
       
-  function handleReferral() {
-            const User_UUID = localStorage.getItem('referr_uuid');
-            const url = window.location.href;
-            const urlParams = new URLSearchParams(window.location.search);
-            const referralId = urlParams.get('referral_id');
+  // function handleReferral() {
+  //           const User_UUID = localStorage.getItem('referr_uuid');
+  //           const url = window.location.href;
+  //           const urlParams = new URLSearchParams(window.location.search);
+  //           const referralId = urlParams.get('referral_id');
 
-            console.log('Current URL:', url);  // تحقق من الرابط الحالي
-            console.log('Referral ID:', referralId);  // تحقق من الـ referral_id الذي تم استخراجه
+  //           console.log('Current URL:', url);  // تحقق من الرابط الحالي
+  //           console.log('Referral ID:', referralId);  // تحقق من الـ referral_id الذي تم استخراجه
 
-            if (referralId) {
+  //           if (referralId) {
                
+  //               const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
+  //               const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI'; // تأكد من صحة مفتاح API
+  //               const headers = {
+  //                   'Content-Type': 'application/json',
+  //                   'apikey': apiKey,
+  //                   'Authorization': `Bearer ${apiKey}`,
+  //               };
+
+  //               const body = {
+  //                   sender_id: referralId,
+  //                   url: url,
+  //                   resever_id: User_UUID,
+  //                       // device_info: deviceId,
+  //                 type:1,
+  //               };
+
+  //               // إرسال البيانات إلى Supabase
+  //               fetch(supabaseUrl, {
+  //                   method: 'POST',
+  //                   headers: headers,
+  //                   body: JSON.stringify(body),
+  //               })
+  //                     .then(response => response.json()) // تحويل الرد إلى JSON
+  //           .then(data => {
+  //               console.log('Data inserted:', data); // البيانات التي تم إرجاعها
+  //               if (data && data.length > 0) {
+  //                    User_UUID = data[0].UU_ID; // رقم id الذي تم إنشاؤه
+  //                   console.log('Generated ID:', generatedId);
+  //                    localStorage.setItem('referr_uuid', User_UUID);
+  //               }
+  //               window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
+  //           })
+  //           .catch(error => {
+  //               console.error('Error:', error); // معالجة الأخطاء
+  //               window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
+  //           });
+  //               // .then(response => {
+  //               //    window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
+                 
+  //               // })
+               
+  //           } else {
+  //               console.log('No referral_id found in URL');
+  //               window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';  // في حالة عدم وجود referral_id
+  //           }
+      
+  //       }
+        async function handleReferral() {
+    // الحصول على الـ referral_id من الـ URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralId = urlParams.get('referral_id');
+    const url = window.location.href;
+    
+    console.log('Current URL:', url);  // تحقق من الرابط الحالي
+    console.log('Referral ID:', referralId);  // تحقق من الـ referral_id الذي تم استخراجه
+
+    if (referralId) {
+        try {
+            // تأكد من أن الـ User_UUID موجود في الـ localStorage
+            let User_UUID = localStorage.getItem('referr_uuid');
+            
+            if (!User_UUID) {
+                // إذا لم يكن موجود، احصل عليه من Supabase
                 const supabaseUrl = 'https://zhhnxvbajczmvqrxwcul.supabase.co/rest/v1/referr';
                 const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpoaG54dmJhamN6bXZxcnh3Y3VsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1NTM0MDcsImV4cCI6MjA0ODEyOTQwN30.sh7x-k-k3C4vNSgT9q8GJR_ZrKrfoz2MGsRG6Rr0ybI'; // تأكد من صحة مفتاح API
                 const headers = {
@@ -75,42 +138,41 @@
                 const body = {
                     sender_id: referralId,
                     url: url,
-                    resever_id: User_UUID,
-                        // device_info: deviceId,
-                  type:1,
+                    resever_id: User_UUID,  // سيتم استخدامه لاحقًا بعد استرجاعه
+                    type: 1,
                 };
 
-                // إرسال البيانات إلى Supabase
-                fetch(supabaseUrl, {
+                // إرسال البيانات إلى Supabase باستخدام await لإيقاف التنفيذ حتى يتم الحصول على الـ User_UUID
+                const response = await fetch(supabaseUrl, {
                     method: 'POST',
                     headers: headers,
                     body: JSON.stringify(body),
-                })
-                      .then(response => response.json()) // تحويل الرد إلى JSON
-            .then(data => {
+                });
+
+                const data = await response.json(); // تحويل الرد إلى JSON
+
                 console.log('Data inserted:', data); // البيانات التي تم إرجاعها
+
                 if (data && data.length > 0) {
-                     User_UUID = data[0].UU_ID; // رقم id الذي تم إنشاؤه
-                    console.log('Generated ID:', generatedId);
-                     localStorage.setItem('referr_uuid', User_UUID);
+                    User_UUID = data[0].UU_ID; // رقم id الذي تم إنشاؤه
+                    console.log('Generated ID:', User_UUID);
+                    localStorage.setItem('referr_uuid', User_UUID); // تخزين الـ User_UUID في الـ localStorage
                 }
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
-            })
-            .catch(error => {
-                console.error('Error:', error); // معالجة الأخطاء
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
-            });
-                // .then(response => {
-                //    window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
-                 
-                // })
-               
-            } else {
-                console.log('No referral_id found in URL');
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';  // في حالة عدم وجود referral_id
             }
-      
+            
+            // الانتقال إلى متجر التطبيقات بعد الانتهاء من معالجة البيانات
+            window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq';
+
+        } catch (error) {
+            console.error('Error:', error); // معالجة الأخطاء
+            window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq'; // الانتقال إذا حدث خطأ
         }
+    } else {
+        console.log('No referral_id found in URL');
+        window.location.href = 'https://play.google.com/store/apps/details?id=com.Alsouq365.Alsouq'; // في حالة عدم وجود referral_id
+    }
+}
+
         // استدعاء الدالة عند تحميل الصفحة
         window.onload = handleReferral;
     </script>
